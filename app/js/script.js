@@ -1,6 +1,19 @@
-const jokeDisplay = document.getElementById('joke');
+const jokeDisplay = document.getElementById('joke')
+const btn = document.querySelector('button.btn-primary')
+const loader = document.getElementById('loading')
 
-document.querySelector('button.btn-primary').addEventListener("click", function () {
+function displayLoading() {
+    jokeDisplay.textContent=''
+    loader.classList.add('display')  
+}
+
+function hideLoading() {
+    loader.classList.remove('display')  
+}
+
+btn.addEventListener("click", function () {
+    displayLoading()    
+    
     // fetch joke api
     fetch("https://icanhazdadjoke.com/", {
         headers: {
@@ -9,10 +22,11 @@ document.querySelector('button.btn-primary').addEventListener("click", function 
     })
     //obtain joke from api
         .then(function (response) {
-            return response.json();
+            return response.json()
         })
         //inject joke into variable 
         .then(function (data) {
-            jokeDisplay.textContent = data.joke;
+            hideLoading()
+            jokeDisplay.textContent = data.joke
         })
 });
